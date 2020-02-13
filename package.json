@@ -1,0 +1,22 @@
+{
+  "name": "live-history",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fetch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cccccccccccccccccnrd/live-history.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cccccccccccccccccnrd/live-history/issues"
+  },
+  "homepage": "https://github.com/cccccccccccccccccnrd/live-history#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  }
+}
