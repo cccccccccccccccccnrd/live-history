@@ -34,15 +34,15 @@ async function getContent(title) {
 
 async function getRecentChanges() {
   const timestamp = now()
-  const response = await fetch(`${url}list=recentchanges&rcprop=title|ids|sizes|flags|user&rcshow=!bot&rctoponly=true&rcend=${ state.timestamp }&rcstart=now&rclimit=100`)
+  const response = await fetch(`${url}list=recentchanges&rcprop=title|ids|sizes|flags|user&rcshow=!bot|!minor&rctype=edit|new&rctoponly=true&rcstart=now&rcend=${ state.timestamp }&rclimit=100`)
   const json = await response.json()
   const changes = json.query.recentchanges
-  
+  console.log(state.changes.length, changes.length)
   state.timestamp = timestamp
   return changes
 }
 
-function getDuplicates(changes, ) {
+function getDuplicates(changes) {
   const titles = changes.map((c) => c.title)
   const duplicates = titles.reduce((acc, v, i, arr) => arr.indexOf(v) !== i && acc.indexOf(v) === -1 ? acc.concat(v) : acc, [])
 
@@ -53,14 +53,13 @@ function init() {
   setInterval(async () => {
     const changes = await getRecentChanges()
     state.changes = state.changes.concat(changes)
-  }, 2 * 1000)
+  }, 5 * 1000)
 
   setInterval(() => {
     const duplicates = getDuplicates(state.changes)
     state.duplicates = state.duplicates.concat(duplicates)
-    console.log(state.duplicates)
     state.changes = []
-  }, 2 * 60 * 1000)
+  }, 1 * 60 * 1000)
 
   setInterval(() => {
     const list = state.duplicates.reduce((acc, curr) => {
@@ -69,13 +68,14 @@ function init() {
       } else {
         acc[curr] += 1
       }
-    
+
       return acc
     }, {})
-    
+    const sorted = Object.keys(list).sort((a, b) => list[b] - list[a]).map(key => `${ key }, ${ list[key] }`)
+    console.log(sorted)
     for (const title in list) {
-      if (list[title] > 2) {
-        console.log(title)
+      if (list[title] > 1) {
+        console.log(link(title))
       }
     }
 

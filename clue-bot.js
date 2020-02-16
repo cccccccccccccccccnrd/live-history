@@ -1,13 +1,23 @@
 const fetch = require('node-fetch')
 const url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&'
 
-async function getVandalisms(limit) {
+const state = {
+  timestamp: now() - 60 * 60
+}
+
+function now() {
+  return Math.round(Date.now() / 1000)
+}
+
+async function getVandalisms() {
   const user = 'ClueBot_NG'
-  const response = await fetch(`${ url }list=usercontribs&uclimit=${ limit * 2 }&ucuser=${ user }`)
+  const timestamp = now()
+  const response = await fetch(`${ url }list=usercontribs&uclimit=100&ucuser=${ user }&ucstart=now&ucend=${ state.timestamp }`)
   const json = await response.json()
   const contributions = json.query.usercontribs
   const vandalisms = contributions.filter((c) => c.comment.includes('vandalism'))
 
+  state.timestamp = timestamp
   return vandalisms
 }
 
@@ -20,18 +30,30 @@ async function getRevision(id) {
   return compare
 }
 
-async function init () {
-  const vandalisms = await getVandalisms(4)
+function getChanges(revision) {
+  const lines = revision['*'].match(/<td class=\"[^\"]*?diff-deletedline[^\"]*?\">(.*?)<\/td>/gi)
+  const inlines = lines.map((l) => l.match(/<del class=\"[^\"]*?diffchange diffchange-inline[^\"]*?\">(.*?)<\/del>/gi)).flat().filter((l) => l !== null)
+  const changes = inlines.length === 0 ? lines.map((l) => l.replace(/<[^>]*>/gi, '')).filter((l) => l !== '') : inlines.map((l) => l.replace(/<[^>]*>/gi, '')).filter((l) => l !== '')
 
-  vandalisms.forEach((v, i) => {
-    setTimeout(async () => {
-      const revision = await getRevision(v.revid)
-      const lines = revision['*'].match(/<td class=\"[^\"]*?diff-deletedline[^\"]*?\">(.*?)<\/td>/gi)
-      const changes = lines.map((l) => l.replace(/<[^>]*>/gi, ''))
-      console.log(changes)
-      console.log(revision.link)
-    }, 1000 * i)
-  })
+  return changes
+}
+
+async function get() {
+  const vandalisms = await getVandalisms()
+
+  for (const v of vandalisms) {
+    const revision = await getRevision(v.revid)
+    const changes = getChanges(revision)
+    console.log(changes, revision.link)
+  }
+}
+
+function init () {
+  get()
+
+  setInterval(async () => {
+    get()
+  }, 2 * 60 * 1000)
 }
 
 init()
