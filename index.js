@@ -11,7 +11,9 @@ const state = {
 
 const app = express()
 
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.use('/lh', express.static(path.join(__dirname, 'interfaces/live-history')))
+app.use('/bot', express.static(path.join(__dirname, 'interfaces/bot')))
+
 app.listen(2000)
 console.log('live-history listening on http://localhost:2000')
 
@@ -53,7 +55,7 @@ function init() {
     const changes = await utils.getRecentChanges()
     state.changes = state.changes.concat(changes)
     console.log(state.changes.length, changes.length)
-  }, 2 * 1000)
+  }, 5 * 1000)
 
   setInterval(() => {
     const duplicates = utils.getDuplicates(state.changes)
@@ -74,11 +76,11 @@ function init() {
     if (hot[0]) {
       interface(hot[0])
     }
-  }, 2 * 60 * 1000)
+  }, 3 * 60 * 1000)
 
   setInterval(() => {
     reset()
-  }, 10 * 60 * 1000)
+  }, 15 * 60 * 1000)
 }
 
 init()

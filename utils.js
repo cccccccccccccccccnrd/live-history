@@ -11,9 +11,9 @@ function now() {
 
 function link(title, history = false) {
   if (history) {
-    return `https://en.m.wikipedia.org/w/index.php?title=${ title.replace(/\s/g, '%20') }&action=history`
+    return `https://en.wikipedia.org/w/index.php?title=${ title.replace(/\s/g, '%20') }&action=history`
   } else {
-    return `https://en.m.wikipedia.org/w/index.php?title=${ title.replace(/\s/g, '%20') }`
+    return `https://en.wikipedia.org/w/index.php?title=${ title.replace(/\s/g, '%20') }`
   }
 }
 
