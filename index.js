@@ -17,7 +17,7 @@ app.use('/bot', express.static(path.join(__dirname, 'interfaces/bot')))
 app.use('/chat', express.static(path.join(__dirname, 'interfaces/bot-chat/dist')))
 
 app.listen(2200)
-console.log('live-history listening on http://localhost:2000')
+console.log('live-history listening on http://localhost:2200')
 
 const wss = new WebSocket.Server({ port: 2201 })
 
