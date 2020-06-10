@@ -140,4 +140,23 @@ p {
 .message:last-of-type {
   margin: 0;
 }
+
+@media (max-width: 600px) {
+  .chat-container {
+    display: flex;
+    flex-flow: column nowrap;
+    width: auto;
+    height: 100vh;
+    border-radius: 0px;
+  }
+
+  .chat {
+    height: auto;
+    width: 100%;
+  }
+
+  .bar {
+    height: 5em;
+  }
+}
 </style>
