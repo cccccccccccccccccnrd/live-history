@@ -31,7 +31,7 @@ export default {
     }
   },
   mounted () {
-    const url = window.location.hostname === 'localhost' ? 'ws://localhost:2001' : 'wss://wwww.cnrd.computer/ws'
+    const url = window.location.hostname === 'localhost' ? 'ws://localhost:2201' : 'wss://wwww.cnrd.computer/ws'
     const socket = new WebSocket(url)
 
     socket.addEventListener('message', (message) => {

@@ -12,7 +12,7 @@ function now() {
 async function getVandalisms(unlimited = false) {
   const user = 'ClueBot_NG'
   if (unlimited) {
-    const response = await fetch(`${ url }list=usercontribs&uclimit=15&ucuser=${ user }`)
+    const response = await fetch(`${ url }list=usercontribs&uclimit=100&ucuser=${ user }`)
     const json = await response.json()
     const contributions = json.query.usercontribs
     const vandalisms = contributions.filter((c) => c.comment.includes('vandalism'))
@@ -38,49 +38,39 @@ async function getRevision(id) {
   
     return compare
   } catch(error) {
-    return null
+    return {}
   }
 }
 
 function getChanges(revision) {
-  const lines = revision['*'].match(/<td class=\"[^\"]*?diff-deletedline[^\"]*?\">(.*?)<\/td>/gi)
-  const inlines = lines.map((l) => l.match(/<del class=\"[^\"]*?diffchange diffchange-inline[^\"]*?\">(.*?)<\/del>/gi)).flat().filter((l) => l !== null)
-  const changes = inlines.length === 0 ? lines.map((l) => l.replace(/<[^>]*>/gi, '')).filter((l) => l !== '') : inlines.map((l) => l.replace(/<[^>]*>/gi, '')).filter((l) => l !== '')
+  if (revision.hasOwnProperty('*')) {
+    const lines = revision['*'].match(/<td class=\"[^\"]*?diff-deletedline[^\"]*?\">(.*?)<\/td>/gi)
+    const inlines = lines.map((l) => l.match(/<del class=\"[^\"]*?diffchange diffchange-inline[^\"]*?\">(.*?)<\/del>/gi)).flat().filter((l) => l !== null)
+    const changes = inlines.length === 0 ? lines.map((l) => l.replace(/<[^>]*>/gi, '')).filter((l) => l !== '') : inlines.map((l) => l.replace(/<[^>]*>/gi, '')).filter((l) => l !== '')
 
-  return changes.trim().filter(Boolean)
+    return changes.join(' ').trim()
+  } else {
+    return null
+  }
 }
 
-async function init() {
-  const vandalisms = await getVandalisms(true)
+async function get(initial = false) {
+  const vandalisms = await getVandalisms(initial)
   const messages = await Promise.all(vandalisms.map(async (v) => {
     const revision = await getRevision(v.revid)
     const changes = getChanges(revision)
-    return changes.map((c) => {
+    if (changes) {
       return {
-        content: c,
+        content: changes,
         url: revision.link
       }
-    })
+    } else {
+      return null
+    }
   }))
-  return messages.flat(Infinity)
-}
-
-async function get() {
-  const vandalisms = await getVandalisms()
-  const messages = await Promise.all(vandalisms.map(async (v) => {
-    const revision = await getRevision(v.revid)
-    const changes = getChanges(revision)
-    return changes.map((c) => {
-      return {
-        content: c,
-        url: revision.link
-      }
-    })
-  }))
-  return messages.flat(Infinity)
+  return messages.filter(Boolean)
 }
 
 module.exports = {
-  init,
   get
 }
