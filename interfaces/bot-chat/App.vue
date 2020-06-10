@@ -1,7 +1,7 @@
 <template>
 <div id="app">
   <div class="chat-container">
-    <div class="fade"></div>
+    <div class="bar top"></div>
     <div
       class="chat"
       ref="chat"
@@ -13,6 +13,7 @@
         :msg="msg"
       />
     </div>
+    <div class="bar bottom"></div>
   </div>
 </div>
 </template>
@@ -26,11 +27,11 @@ export default {
   },
   data () {
     return {
-      messages: ['We are watching YOU.', 'KIM KIYOSAKI È DIVENTATA FAMOSA PER AVER FATTO UN POMPINO A ROBERT T. KIYOSAKI', 'DIVORY FICKT ÄRSCHE RAUCHT JOINT HI HI WEN DU DAS LIEST, DEINE ALTE KRIECHT INS BAD HIHI KANKITO', 'We are watching YOU.', 'KIM KIYOSAKI È DIVENTATA FAMOSA PER AVER FATTO UN POMPINO A ROBERT T. KIYOSAKI', 'DIVORY FICKT ÄRSCHE RAUCHT JOINT HI HI WEN DU DAS LIEST, DEINE ALTE KRIECHT INS BAD HIHI KANKITO', 'We are watching YOU.', 'KIM KIYOSAKI È DIVENTATA FAMOSA PER AVER FATTO UN POMPINO A ROBERT T. KIYOSAKI', 'DIVORY FICKT ÄRSCHE RAUCHT JOINT HI HI WEN DU DAS LIEST, DEINE ALTE KRIECHT INS BAD HIHI KANKITO', 'We are watching YOU.', 'KIM KIYOSAKI È DIVENTATA FAMOSA PER AVER FATTO UN POMPINO A ROBERT T. KIYOSAKI', 'DIVORY FICKT ÄRSCHE RAUCHT JOINT HI HI WEN DU DAS LIEST, DEINE ALTE KRIECHT INS BAD HIHI KANKITO', 'We are watching YOU.', 'KIM KIYOSAKI È DIVENTATA FAMOSA PER AVER FATTO UN POMPINO A ROBERT T. KIYOSAKI', 'DIVORY FICKT ÄRSCHE RAUCHT JOINT HI HI WEN DU DAS LIEST, DEINE ALTE KRIECHT INS BAD HIHI KANKITO', 'We are watching YOU.', 'KIM KIYOSAKI È DIVENTATA FAMOSA PER AVER FATTO UN POMPINO A ROBERT T. KIYOSAKI', 'DIVORY FICKT ÄRSCHE RAUCHT JOINT HI HI WEN DU DAS LIEST, DEINE ALTE KRIECHT INS BAD HIHI KANKITO', 'We are watching YOU.', 'KIM KIYOSAKI È DIVENTATA FAMOSA PER AVER FATTO UN POMPINO A ROBERT T. KIYOSAKI', 'DIVORY FICKT ÄRSCHE RAUCHT JOINT HI HI WEN DU DAS LIEST, DEINE ALTE KRIECHT INS BAD HIHI KANKITO', 'We are watching YOU.', 'KIM KIYOSAKI È DIVENTATA FAMOSA PER AVER FATTO UN POMPINO A ROBERT T. KIYOSAKI', 'DIVORY FICKT ÄRSCHE RAUCHT JOINT HI HI WEN DU DAS LIEST, DEINE ALTE KRIECHT INS BAD HIHI KANKITO', 'We are watching YOU.', 'KIM KIYOSAKI È DIVENTATA FAMOSA PER AVER FATTO UN POMPINO A ROBERT T. KIYOSAKI', 'DIVORY FICKT ÄRSCHE RAUCHT JOINT HI HI WEN DU DAS LIEST, DEINE ALTE KRIECHT INS BAD HIHI KANKITO', 'We are watching YOU.', 'KIM KIYOSAKI È DIVENTATA FAMOSA PER AVER FATTO UN POMPINO A ROBERT T. KIYOSAKI', 'DIVORY FICKT ÄRSCHE RAUCHT JOINT HI HI WEN DU DAS LIEST, DEINE ALTE KRIECHT INS BAD HIHI KANKITO', ]
+      messages: []
     }
   },
   mounted () {
-    const url = window.location.hostname === 'localhost' ? 'ws://localhost:2001' : 'wss://cnrd.computer/live-history-ws'
+    const url = window.location.hostname === 'localhost' ? 'ws://localhost:2001' : 'wss://wild.cnrd.computer/ws'
     const socket = new WebSocket(url)
 
     socket.addEventListener('message', (message) => {
@@ -39,8 +40,10 @@ export default {
       if (msg.type === 'bot-message') {
         console.log(msg.payload)
         if (msg.payload.length > 0) {
-          this.messages = this.messages.concat(message.payload)
-          this.scroll()
+          this.messages = this.messages.concat(msg.payload)
+          this.$nextTick(() => {
+            this.scroll()
+          })
         }
       }
     })
@@ -49,7 +52,16 @@ export default {
   },
   methods: {
     scroll () {
-      this.$refs.chat.scrollTop = this.$refs.chat.scrollHeight
+      this.$refs.chat.scroll({
+        top: this.$refs.chat.scrollHeight,
+        left: 0,
+        behavior: 'smooth'
+      })
+    }
+  },
+  computed: {
+    loading () {
+      return this.messages.length === 0
     }
   }
 }
@@ -67,6 +79,7 @@ export default {
 html, body {
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -85,37 +98,43 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Arial;
-  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
 
+.bar {
+  width: 100%;
+  height: 4em;
+}
+
+.bar.top {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bar.bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 .chat-container {
   width: auto;
   height: auto;
+  background: rgba(0, 0, 0, 1);
+  border-radius: 25px;
 }
 
 .chat {
   position: relative;
-  width: 100%;
-  max-width: 375px;
-  height: 80vh;
-  padding: 1em;
-  border: 1px solid black;
-  border-radius: 25px;
+  width: 375px;
+  /* width: 90%; */
+  height: 70vh;
+  padding: 1.5em;
   overflow: hidden;
   overflow-y: scroll;
-}
-
-.fade {
-  position: absolute;
-  width: 375px;
-  height: 5%;
-  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
-  z-index: 10;
 }
 
 .message:last-of-type {

@@ -14,16 +14,20 @@ const app = express()
 
 app.use('/lh', express.static(path.join(__dirname, 'interfaces/live-history')))
 app.use('/bot', express.static(path.join(__dirname, 'interfaces/bot')))
-app.use('/hi', express.static(path.join(__dirname, 'interfaces/bot-chat/dist')))
+app.use('/chat', express.static(path.join(__dirname, 'interfaces/bot-chat/dist')))
 
 app.listen(2000)
 console.log('live-history listening on http://localhost:2000')
 
 const wss = new WebSocket.Server({ port: 2001 })
 
-wss.on('connection', (ws) => {
+wss.on('connection', async (ws) => {
   console.log('ws connected')
   state.ws = ws
+
+  const initial = await bot.init()
+  console.log(initial)
+  send(initial, 'bot-message')
 
   ws.on('message', (data) => {
     console.log(data)
@@ -57,14 +61,14 @@ function send(message, type) {
   }
 }
 
-function init() {
+async function init() {
   setInterval(async () => {
     const changes = await bot.get()
     console.log(changes)
     send(changes, 'bot-message')
   }, 1 * 60 * 1000)
 
-  setInterval(async () => {
+  /* setInterval(async () => {
     const changes = await utils.getRecentChanges()
     state.changes = state.changes.concat(changes)
     console.log(state.changes.length, changes.length)
@@ -93,7 +97,7 @@ function init() {
 
   setInterval(() => {
     reset()
-  }, 15 * 60 * 1000)
+  }, 15 * 60 * 1000) */
 }
 
 init()

@@ -5,7 +5,7 @@
   "main": "fetch.js",
   "scripts": {
     "bot": "node bot-clue.js",
-    "live": "node index.js"
+    "serve": "node index.js"
   },
   "repository": {
     "type": "git",
