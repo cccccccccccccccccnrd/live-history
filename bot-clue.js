@@ -40,20 +40,12 @@ function getChanges(revision) {
 
 async function get() {
   const vandalisms = await getVandalisms()
-
-  for (const v of vandalisms) {
+  return await Promise.all(vandalisms.map(async (v) => {
     const revision = await getRevision(v.revid)
-    const changes = getChanges(revision)
-    console.log(changes, revision.link)
-  }
+    return getChanges(revision)
+  }))
 }
 
-function init () {
-  get()
-
-  setInterval(async () => {
-    get()
-  }, 2 * 60 * 1000)
+module.exports = {
+  get
 }
-
-init()

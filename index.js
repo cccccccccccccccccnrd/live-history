@@ -2,6 +2,7 @@ const path = require('path')
 const express = require('express')
 const WebSocket = require('ws')
 const utils = require('./utils.js')
+const bot = require('./bot-clue.js')
 
 const state = {
   ws: null,
@@ -13,6 +14,7 @@ const app = express()
 
 app.use('/lh', express.static(path.join(__dirname, 'interfaces/live-history')))
 app.use('/bot', express.static(path.join(__dirname, 'interfaces/bot')))
+app.use('/hi', express.static(path.join(__dirname, 'interfaces/bot-chat/dist')))
 
 app.listen(2000)
 console.log('live-history listening on http://localhost:2000')
@@ -39,10 +41,15 @@ function interface(entry) {
     right: utils.link(entry[0], true)
   }
 
-  send(msg)
+  send(msg, 'interface')
 }
 
-function send(msg) {
+function send(message, type) {
+  const msg = {
+    type: type,
+    payload: message
+  }
+
   if (state.ws) {
     state.ws.send(JSON.stringify(msg))
   } else {
@@ -51,6 +58,12 @@ function send(msg) {
 }
 
 function init() {
+  setInterval(async () => {
+    const changes = await bot.get()
+    console.log(changes)
+    send(changes, 'bot-message')
+  }, 1 * 60 * 1000)
+
   setInterval(async () => {
     const changes = await utils.getRecentChanges()
     state.changes = state.changes.concat(changes)
@@ -61,7 +74,7 @@ function init() {
     const duplicates = utils.getDuplicates(state.changes)
     state.duplicates = state.duplicates.concat(duplicates)
     state.changes = []
-  }, 1 * 60 * 1000)
+  }, 2 * 60 * 1000)
 
   setInterval(() => {
     const list = state.duplicates.reduce((acc, curr) => {
@@ -76,7 +89,7 @@ function init() {
     if (hot[0]) {
       interface(hot[0])
     }
-  }, 3 * 60 * 1000)
+  }, 4 * 60 * 1000)
 
   setInterval(() => {
     reset()

@@ -4,7 +4,8 @@
   "description": "",
   "main": "fetch.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bot": "node bot-clue.js",
+    "live": "node index.js"
   },
   "repository": {
     "type": "git",
