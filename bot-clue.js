@@ -47,7 +47,7 @@ function getChanges(revision) {
   const inlines = lines.map((l) => l.match(/<del class=\"[^\"]*?diffchange diffchange-inline[^\"]*?\">(.*?)<\/del>/gi)).flat().filter((l) => l !== null)
   const changes = inlines.length === 0 ? lines.map((l) => l.replace(/<[^>]*>/gi, '')).filter((l) => l !== '') : inlines.map((l) => l.replace(/<[^>]*>/gi, '')).filter((l) => l !== '')
 
-  return changes.filter(Boolean)
+  return changes.trim().filter(Boolean)
 }
 
 async function init() {
