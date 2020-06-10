@@ -26,7 +26,6 @@ wss.on('connection', async (ws) => {
   state.ws = ws
 
   const initial = await bot.init()
-  console.log(initial)
   send(initial, 'bot-message')
 
   ws.on('message', (data) => {
