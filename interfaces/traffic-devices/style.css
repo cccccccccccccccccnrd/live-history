@@ -1,0 +1,37 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 0 1em 1em 1em;
+  font-family: 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, video {
+  display: block;
+  width: 100%;
+}
+
+img {
+  margin: 0 0 1em 0;
+}
+
+h2 {
+  font-weight: normal;
+  font-size: 2em;
+}
+
+.container {
+  max-width: 375px;
+}
+
+.notes {
+  /* font-family: monospace;
+  font-size: 0.8em; */
+}
