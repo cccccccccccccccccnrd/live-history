@@ -5,28 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>traffic-devices</title>
 
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet' />
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <p>Barbarossaplatz <br /> 15.6.20 1400—1500</p>
-    <a href="https://www.google.com/maps/place/50%C2%B055'45.2%22N+6%C2%B056'30.3%22E/@50.929215,6.9411995,225m/data=!3m2!1e3!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d50.9292154!4d6.941748" target="_blank">
-      <img src="assets/location.jpg" />
-    </a>
-    <!-- <p>50°55'45.2"N 6°56'30.3"E</p> -->
-    <video src="assets/detection.mp4" muted autoplay loop></video>
-    <p>
-      Devices in 1h: 90 trams, 1350 cars, 420 bikes, 240 pedestrians
-    </p>
-    <p>
-      Other devices: minibus, truck, ambulance, trashcar, cab, police, babywagon, delivery bike, scooter, motorbike, wheelchair, shopping cart
-    </p>
-    <p>
-      Full traffic light cycle duration 1:50 min
-    </p>
-    <p>
-      Question of the distribution of physical space: wider shots of crossroads to detect ratios of different devices
-    </p>
+  <div class="place">
+    <header>
+      <p>Barbarossaplatz <br /> 16.6.20 1600—1700</p>
+    </header>
+    <div class="videos">
+      <div class="video">
+        <p class="notes">
+          16.6.20 16:31, 50°55'43.6"N 6°56'34.0"E
+        </p>
+        <div id="map-1" class="map"></div>
+        <video src="assets/b-01.mov" muted autoplay loop></video>
+      </div>
+      <div class="video">
+        <p class="notes">
+          16.6.20 16:34, 50°55'42.8"N 6°56'32.8"E
+        </p>
+        <div id="map-2" class="map"></div>
+        <video src="assets/b-02.mov" muted autoplay loop></video>
+      </div>
+    </div>
+  </div>
+  <div class="place">
+    <header>
+      <p>Chlodwigplatz <br /> 16.6.20 1600—1700</p>
+    </header>
+    <div class="videos">
+      <div class="video">
+        <p class="notes">
+          16.6.20 16:30, 50°55'16.4"N 6°57'33.5"E
+        </p>
+        <div id="map-3" class="map"></div>
+        <video src="assets/h-01.mov" muted autoplay loop></video>
+      </div>
+      <div class="video">
+        <p class="notes">
+          16.6.20 16:45, 50°55'15.1"N 6°57'35.3"E
+        </p>
+        <div id="map-4" class="map"></div>
+        <video src="assets/h-02.mov" muted autoplay loop></video>
+      </div>
+    </div>
+  </div>
+  <div class="place">
+    <header>
+      <p>Heumarkt <br /> 16.6.20 1600—1700</p>
+    </header>
+    <div class="videos">
+      <div class="video">
+        <p class="notes">
+          16.6.20 16:34, 50°56'08.7"N 6°57'38.7"E
+        </p>
+        <div id="map-5" class="map"></div>
+        <video src="assets/h-01.mov" muted autoplay loop></video>
+      </div>
+      <div class="video">
+        <p class="notes">
+          16.6.20 16:42, 50°56'07.0"N 6°57'36.6"E
+        </p>
+        <div id="map-6" class="map"></div>
+        <video src="assets/h-02.mov" muted autoplay loop></video>
+      </div>
+    </div>
   </div>
   <script src="main.js"></script>
 </body>
