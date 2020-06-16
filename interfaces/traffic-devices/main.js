@@ -3,7 +3,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY25yZCIsImEiOiJjanY2ZWF0ZHAwMGs3NDNxcjI0MjVob
 const locations = [
   [6.942777, 50.928776],
   [6.942445, 50.928555],
-  [6.959305, 50.929207],
+  [6.959252, 50.921260],
   [6.959815, 50.920847],
   [6.960750, 50.935750],
   [6.960167, 50.935278]
