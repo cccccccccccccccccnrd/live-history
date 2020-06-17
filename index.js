@@ -16,6 +16,7 @@ app.use('/lh', express.static(path.join(__dirname, 'interfaces/live-history')))
 app.use('/bot', express.static(path.join(__dirname, 'interfaces/bot')))
 app.use('/chat', express.static(path.join(__dirname, 'interfaces/bot-chat/dist')))
 app.use('/traffic-devices', express.static(path.join(__dirname, 'interfaces/traffic-devices')))
+app.use('/distribution', express.static(path.join(__dirname, 'interfaces/distribution')))
 
 app.listen(2200)
 console.log('live-history listening on http://localhost:2200')
