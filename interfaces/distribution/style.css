@@ -1,9 +1,24 @@
+:root {
+  --width: 18em;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 30px;
+  height: 30px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: black;
+}
+
 html, body {
   margin: 0;
   padding: 0;
 }
 
 body {
+  width: fit-content;
   display: flex;
   padding: 1em;
   font-family: 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -28,8 +43,29 @@ p {
 }
 
 h2 {
+  margin: 0 0 0.4em 0;
   font-weight: normal;
-  font-size: 2em;
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+
+header {
+  margin: 0 0 1em 0;
+}
+
+.study {
+  /* width: min-content; */
+  margin: 0 1em 0 0;
+  filter: hue-rotate(45deg);
+}
+
+.study:last-of-type {
+  margin: 0;
+}
+
+.places {
+  display: flex;
+  margin: 2em 0 0 0;
 }
 
 .place {
@@ -41,7 +77,7 @@ h2 {
 }
 
 .video {
-  max-width: 375px;
+  max-width: var(--width);
   /* margin: 0 1em 0 0; */
 }
 
@@ -52,8 +88,8 @@ h2 {
 }
 
 .map {
-  height: 375px;
-  width: 375px;
+  height: calc(var(--width) / 2);
+  width: var(--width);
   /* margin: 0 0 1em 0; */
   font-size: 1em;
 }
