@@ -94,6 +94,20 @@ header {
   font-size: 1em;
 }
 
+.block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background: black;
+  z-index: 9999;
+}
+
 /* Hide */
 
 .mapboxgl-ctrl {
