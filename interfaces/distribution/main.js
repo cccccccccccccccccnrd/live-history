@@ -16,7 +16,55 @@ function stop () {
   })
 }
 
+function mode (mode) {
+  if (mode === 'all') {
+    document.querySelectorAll('.info').forEach((info) => info.style.opacity = 1)
+  } else {
+    document.querySelectorAll('.video-container').forEach((container) => {
+      container.className.split(' ').filter((c) => c.startsWith('mode')).forEach((c) => container.classList.remove(c))
+      container.classList.add(`mode-${ mode }`)
+    })
+  }
+}
+
+function slide (content) {
+  document.querySelector('#slide').innerText = content
+}
+
 function init () {
+  const delay = 30000
+
+  mode('00')
+  setTimeout(() => {
+    slide('Traffic is a system of priority and hierarchy')
+  }, delay * 0.4)
+  setTimeout(() => {
+    slide('a system of shared space and collaboration within specific rules')
+  }, delay * 0.8)
+  setTimeout(() => {
+    mode('01')
+  }, delay * 1)
+  setTimeout(() => {
+    slide('Behaviours of flow, consisting out of positioning and speed')
+  }, delay * 1.4)
+  setTimeout(() => {
+    slide('and highly complex socially constructed patterns')
+  }, delay * 1.8)
+  setTimeout(() => {
+    mode('02')
+  }, delay * 2)
+  setTimeout(() => {
+    slide('manifest the distribution of public space')
+  }, delay * 2.4)
+  setTimeout(() => {
+    slide('')
+  }, delay * 2.8)
+  setTimeout(() => {
+    mode('all')
+  }, delay * 3)
+}
+
+function maps () {
   mapboxgl.accessToken = 'pk.eyJ1IjoiY25yZCIsImEiOiJjanY2ZWF0ZHAwMGs3NDNxcjI0MjVobG1iIn0.h2key8APdBWqexOo6k1Kgw'
 
   const locations = [
@@ -79,3 +127,4 @@ function init () {
 }
 
 init()
+maps()
