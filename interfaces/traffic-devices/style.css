@@ -1,3 +1,17 @@
+:root {
+  --width: 18em;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 30px;
+  height: 30px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: black;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -27,9 +41,38 @@ p {
   margin: 0 0 1em 0;
 }
 
-h2 {
+h1 {
+  margin: 0;
+  font-size: 8em;
   font-weight: normal;
-  font-size: 2em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+h2 {
+  margin: 0 0 0.4em 0;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+header {
+  margin: 0 0 1em 0;
+}
+
+.study {
+  width: min-content;
+  /* margin: 0 1em 0 0; */
+  filter: hue-rotate(45deg);
+}
+
+.study:last-of-type {
+  margin: 0;
+}
+
+.places {
+  display: flex;
+  margin: 2em 0 0 0;
 }
 
 .place {
@@ -41,8 +84,8 @@ h2 {
 }
 
 .video {
-  max-width: 375px;
-  margin: 0 1em 0 0;
+  max-width: var(--width);
+  /* margin: 0 1em 0 0; */
 }
 
 .notes {
@@ -52,10 +95,68 @@ h2 {
 }
 
 .map {
-  height: 375px;
-  width: 375px;
-  margin: 0 0 1em 0;
+  height: calc(var(--width) / 2);
+  width: var(--width);
+  /* margin: 0 0 1em 0; */
   font-size: 1em;
+}
+
+.block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background: black;
+  z-index: 9999;
+}
+
+.video-container {
+  /* height: var(--width); */
+  overflow: hidden;
+}
+
+.video-container.mode-00::before {
+  position: absolute;
+  content: '';
+  width: var(--width);
+  height: var(--width);
+  background: white;
+}
+
+.video-container.mode-00::after {
+  position: absolute;
+  bottom: 0;
+  content: '';
+  width: var(--width);
+  height: var(--width);
+  background: white;
+}
+
+.video-container.mode-01::before {
+  position: absolute;
+  content: '';
+  width: var(--width);
+  height: var(--width);
+  background: white;
+}
+
+.slide {
+  position: absolute;
+  z-index: 9999;
+}
+
+.info {
+  /* opacity: 0; */
+}
+
+.descr {
+  min-height: 6em;
+  max-width: 55em;
 }
 
 /* Hide */

@@ -151,7 +151,12 @@ header {
 }
 
 .info {
-  opacity: 0;
+  /* opacity: 0; */
+}
+
+.descr {
+  min-height: 6em;
+  max-width: 55em;
 }
 
 /* Hide */

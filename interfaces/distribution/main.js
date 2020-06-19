@@ -36,29 +36,32 @@ function init () {
 
   mode('00')
   setTimeout(() => {
-    slide('Traffic is a system of priority and hierarchy')
+    slide('traffic is a complex system of correlating motion patterns')
   }, delay * 0.4)
   setTimeout(() => {
-    slide('a system of shared space and collaboration within specific rules')
+    slide('a structured chaos organized by certain regulations and their non-observance')
   }, delay * 0.8)
   setTimeout(() => {
     mode('01')
   }, delay * 1)
   setTimeout(() => {
-    slide('Behaviours of flow, consisting out of positioning and speed')
+    slide('a framework of shared space and collaboration unfolding within fluid hierarchies')
   }, delay * 1.4)
   setTimeout(() => {
-    slide('and highly complex socially constructed patterns')
+    slide('an organism of living particles proceeding in wave-like motions')
   }, delay * 1.8)
   setTimeout(() => {
     mode('02')
   }, delay * 2)
   setTimeout(() => {
-    slide('manifest the distribution of public space')
+    slide('seeming like an endless cycle of repetitive movement sequences')
   }, delay * 2.4)
   setTimeout(() => {
-    slide('')
+    slide('that manifest the distribution of public space')
   }, delay * 2.8)
+  setTimeout(() => {
+    slide('')
+  }, delay * 3)
   setTimeout(() => {
     mode('all')
   }, delay * 3)
@@ -126,5 +129,5 @@ function maps () {
   })
 }
 
-init()
+/* init() */
 maps()

@@ -3,89 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Distribution of public space</title>
+  <title>THE DISTRIBUTION OF PUBLIC SPACE</title>
 
   <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet' />
 
   <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="assets/favicon.png" type="image/png">
 </head>
 <body>
-  <div class="place">
-    <header>
-      <p>Barbarossaplatz <br /> 16.6.20 1600—1700</p>
-    </header>
-    <div class="videos">
-      <div class="video">
-        <p class="notes">
-          16.6.20 16:31, 50°55'43.6"N 6°56'34.0"E
-        </p>
-        <div id="map-1" class="map"></div>
-        <video src="assets/b-01.mov" muted autoplay loop></video>
-      </div>
-      <div class="video">
-        <p class="notes">
-          16.6.20 16:34, 50°55'42.8"N 6°56'32.8"E
-        </p>
-        <div id="map-2" class="map"></div>
-        <video src="assets/b-02.mov" muted autoplay loop></video>
-      </div>
-    </div>
+  <div id="block" class="block">
+    <p>Loading...</p>
   </div>
-  <div class="place">
-    <header>
-      <p>Chlodwigplatz <br /> 16.6.20 1600—1700</p>
-    </header>
-    <div class="videos">
-      <div class="video">
-        <p class="notes">
-          16.6.20 16:39, 50°55'16.7"N 6°57'35.5"E
-        </p>
-        <div id="map-3" class="map"></div>
-        <video src="assets/c-01.mov" muted autoplay loop></video>
-      </div>
-      <div class="video">
-        <p class="notes">
-          16.6.20 16:44, 50°55'15.1"N 6°57'35.1"E
-        </p>
-        <div id="map-4" class="map"></div>
-        <video src="assets/c-02.mov" muted autoplay loop></video>
-      </div>
-    </div>
+  <div class="slide">
+    <h1 id="slide"></h1>
   </div>
-  <div class="place">
-    <header>
-      <p>Heumarkt <br /> 16.6.20 1600—1700</p>
-    </header>
-    <div class="videos">
-      <div class="video">
-        <p class="notes">
-          16.6.20 16:34, 50°56'08.7"N 6°57'38.7"E
-        </p>
-        <div id="map-5" class="map"></div>
-        <video src="assets/h-01.mov" muted autoplay loop></video>
-      </div>
-      <div class="video">
-        <p class="notes">
-          16.6.20 16:42, 50°56'07.0"N 6°57'36.6"E
-        </p>
-        <div id="map-6" class="map"></div>
-        <video src="assets/h-02.mov" muted autoplay loop></video>
-      </div>
-    </div>
-  </div>
-  <div class="place">
-    <header>
-      <p>Visual exploration <br /> 17.6.20 0000—0000</p>
-    </header>
-    <div class="videos">
-      <div class="video">
-        <p class="notes">
-          17.6.20 00:00, 50°56'08.7"N 6°57'38.7"E
-        </p>
-        <div id="map-7" class="map"></div>
-        <video style="margin: 0 0 1em 0;" src="assets/a-01.mov" muted autoplay loop></video>
-        <video src="assets/a-02.mov" muted autoplay loop></video>
+  <div class="study">
+    <h2 class="info">Device study</h2>
+    <p class="info descr">Telling the story of the hierarchy/organisation of the distribution of space in traffic. Telling this through the order and visuals of the video. Maybe starting with showing just the boxes of one vehicle and then adding the other to it. Or the other way round, starting with the chaotic situation and then deconstructing it by taking one vehicle group after another away. For the videos filmed out of the car/bike/scooter and as a pedestrian it might be nice to overlap or merge them to visualize the differences.</p>
+    <div class="places">
+      <div class="place">
+        <header class="info">
+          <p>Barbarossaplatz <br /> 17.6.20 1200—1300</p>
+        </header>
+        <div class="videos">
+          <div class="video">
+            <p class="notes info">
+              17.6.20 12:48, 50°55'41.7"N 6°56'33.5"E
+            </p>
+            <div id="map-1" class="map info"></div>
+            <video src="assets/b-car.m4v" muted loop></video>
+            <video src="assets/b-train.m4v" muted loop></video>
+            <video src="assets/b-bicycle.m4v" muted loop></video>
+            <video src="assets/b-person.m4v" muted loop></video>
+          </div>
+        </div>
       </div>
     </div>
   </div>
